@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TeamWorkLesson3Compose</string>
+    <string name="isayama">Isayama</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="hajime_isayama">Hajime Isayama</string>
 </resources>
