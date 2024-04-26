@@ -1,4 +1,4 @@
-package com.example.teamworklesson3compose
+package com.example.teamworklesson3compose.presentation.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.teamworklesson3compose.screens.UserInfo
 import com.example.teamworklesson3compose.ui.theme.TeamWorkLesson3ComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    UserInfo()
                 }
             }
         }
@@ -37,10 +38,3 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TeamWorkLesson3ComposeTheme {
-        Greeting("Android")
-    }
-}
