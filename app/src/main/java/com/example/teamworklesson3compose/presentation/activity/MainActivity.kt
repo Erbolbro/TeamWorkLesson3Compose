@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.teamworklesson3compose.screens.SearchAccount
 import com.example.teamworklesson3compose.screens.UserInfo
 import com.example.teamworklesson3compose.ui.theme.TeamWorkLesson3ComposeTheme
 
@@ -24,6 +25,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     UserInfo()
+                    SearchAccount(modifier = Modifier)
                 }
             }
         }
