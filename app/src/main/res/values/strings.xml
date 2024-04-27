@@ -6,4 +6,7 @@
     <string name="search">Поиск</string>
     <string name="filter">Фильтер</string>
     <string name="serch">Search</string>
+    <string name="see_all_desc">See all arrow</string>
+    <string name="see_all">See all</string>
+    <string name="suggestions">Suggestions for you</string>
 </resources>
