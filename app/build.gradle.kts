@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.volley)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -98,4 +99,6 @@ dependencies {
     // Binding property delegate
     //noinspection UseTomlInstead
     implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
+    //AcyncImage
+    implementation("io.coil-kt:coil-compose:2.6.0")
 }
