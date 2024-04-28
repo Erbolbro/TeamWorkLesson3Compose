@@ -10,7 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.teamworklesson3compose.presentation.data.model.Titans
 import com.example.teamworklesson3compose.screens.SearchAccount
+import com.example.teamworklesson3compose.screens.SecondTitanItem
 import com.example.teamworklesson3compose.screens.UserInfo
 import com.example.teamworklesson3compose.ui.theme.TeamWorkLesson3ComposeTheme
 
@@ -19,24 +21,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TeamWorkLesson3ComposeTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    UserInfo()
-                    SearchAccount(modifier = Modifier)
+//                    UserInfo()
+//                    SearchAccount()
+                    SecondTitanItem(titans = Titans("","","",""))
                 }
             }
         }
     }
 }
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
