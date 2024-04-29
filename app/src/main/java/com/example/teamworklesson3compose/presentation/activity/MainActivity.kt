@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.teamworklesson3compose.presentation.data.model.Titans
 import com.example.teamworklesson3compose.screens.SearchAccount
-import com.example.teamworklesson3compose.screens.SecondTitanItem
+
 import com.example.teamworklesson3compose.screens.UserInfo
 import com.example.teamworklesson3compose.ui.theme.TeamWorkLesson3ComposeTheme
 
@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                 ) {
 //                    UserInfo()
 //                    SearchAccount()
-                    SecondTitanItem(titans = Titans("","","",""))
+//                    SecondTitanItem(titans = Titans("","","",""))
                 }
             }
         }
