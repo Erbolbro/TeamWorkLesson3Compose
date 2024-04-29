@@ -99,6 +99,6 @@ dependencies {
     // Binding property delegate
     //noinspection UseTomlInstead
     implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
-    //AcyncImage
+    //AsyncImage
     implementation("io.coil-kt:coil-compose:2.6.0")
 }
