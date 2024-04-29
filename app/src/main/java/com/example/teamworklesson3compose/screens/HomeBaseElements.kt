@@ -42,7 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import com.android.volley.toolbox.ImageRequest
 import com.example.teamworklesson3compose.R
 import com.example.teamworklesson3compose.presentation.data.model.Characters
 import com.example.teamworklesson3compose.presentation.data.model.Titans
@@ -148,8 +148,7 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: Titans) {
         ) {
             AsyncImage(
                 modifier = Modifier,
-                model = ImageRequest.Builder(LocalContext.current).data(titans.image)
-                    .crossfade(true).build(),
+                model = titans.image,
                 contentDescription = stringResource(R.string.image_aot),
                 placeholder = painterResource(
                     id = R.drawable.place_holder,
