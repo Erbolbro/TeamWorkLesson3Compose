@@ -1,6 +1,5 @@
 package com.example.teamworklesson3compose.presentation.remote
 
-import com.example.teamworklesson3compose.presentation.remote.apiservice.TitanApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -29,5 +28,5 @@ class RetrofitClient {
         .client(okHttpClient)
         .build()
 
-    val titanApiService: TitanApiService = retrofit.create()
+    val titanApiService: AttackOnTitansApiService = retrofit.create()
 }
