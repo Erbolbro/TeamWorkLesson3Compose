@@ -1,5 +1,6 @@
-package com.example.teamworklesson3compose.presentation.remote
+package com.example.teamworklesson3compose.presentation.data.remote
 
+import com.example.teamworklesson3compose.presentation.data.remote.apiservices.AttackOnTitansApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
