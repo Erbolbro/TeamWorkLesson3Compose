@@ -15,7 +15,9 @@ import com.example.teamworklesson3compose.screens.SearchAccount
 
 import com.example.teamworklesson3compose.screens.UserInfo
 import com.example.teamworklesson3compose.ui.theme.TeamWorkLesson3ComposeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
