@@ -11,13 +11,13 @@ private const val CHARACTER_ENDPOINT = "character"
 interface AttackOnTitansApiService {
 
     @GET(TITAN_ENDPOINT)
-    fun getTitan(): TitansModel
+    suspend fun getTitan(): TitansModel
 
     @GET(CHARACTER_ENDPOINT)
-    fun getCharacter(): PersonsModel
+    suspend fun getCharacter(): PersonsModel
 
     @GET(CHARACTER_ENDPOINT)
-    fun characterSearch(
+    suspend fun characterSearch(
         @Query("q") query: String
     ): PersonsModel
 }
