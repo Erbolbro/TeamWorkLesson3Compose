@@ -1,4 +1,4 @@
-package com.example.teamworklesson3compose.presentation.remote.models.titans
+package com.example.teamworklesson3compose.presentation.data.remote.models.titans
 
 
 import com.google.gson.annotations.SerializedName

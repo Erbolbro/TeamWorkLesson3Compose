@@ -1,6 +1,6 @@
-package com.example.teamworklesson3compose.di
+package com.example.teamworklesson3compose.presentation.di
 
-import com.example.teamworklesson3compose.presentation.remote.RetrofitClient
+import com.example.teamworklesson3compose.presentation.data.remote.RetrofitClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
