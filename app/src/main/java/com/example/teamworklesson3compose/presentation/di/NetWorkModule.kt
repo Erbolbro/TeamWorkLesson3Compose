@@ -12,8 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-const val BASE_URL = "https://api.attackontitanapi.com/"
-
 @InstallIn(SingletonComponent::class)
 @Module
 object NetWorkModule {
@@ -42,7 +40,9 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun provideTitanApiService(retrofitClient: Retrofit) : AttackOnTitansApiService {
+    fun provideTitanApiService(retrofitClient: Retrofit): AttackOnTitansApiService {
         return retrofitClient.create(AttackOnTitansApiService::class.java)
     }
 }
+
+const val BASE_URL = "https://api.attackontitanapi.com/"

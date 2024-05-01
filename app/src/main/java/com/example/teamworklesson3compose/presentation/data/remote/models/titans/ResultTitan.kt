@@ -3,7 +3,7 @@ package com.example.teamworklesson3compose.presentation.data.remote.models.titan
 
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class ResultTitan(
     @SerializedName("abilities")
     val abilities: List<String>,
     @SerializedName("allegiance")

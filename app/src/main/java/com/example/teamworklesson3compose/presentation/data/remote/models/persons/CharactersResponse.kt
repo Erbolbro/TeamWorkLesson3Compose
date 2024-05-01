@@ -2,9 +2,9 @@ package com.example.teamworklesson3compose.presentation.data.remote.models.perso
 
 import com.google.gson.annotations.SerializedName
 
-data class PersonsModel(
+data class CharactersResponse<T>(
     @SerializedName("info")
     val info: Info,
     @SerializedName("results")
-    val results: List<Result>
+    val results: List<T>
 )
