@@ -1,12 +1,12 @@
 package com.example.teamworklesson3compose.presentation.utils.base
 
-import com.example.teamworklesson3compose.presentation.utils.AppDispatchers
 import com.example.teamworklesson3compose.presentation.utils.Either
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-abstract class BaseRepository(private val appDispatchers: AppDispatchers) {
+abstract class BaseRepository {
 
     protected fun <T> doRequest(
         request: suspend () -> T,
@@ -14,7 +14,7 @@ abstract class BaseRepository(private val appDispatchers: AppDispatchers) {
         emit(
             Either.Right(request())
         )
-    }.flowOn(appDispatchers.io).catch {
+    }.flowOn(Dispatchers.IO).catch {
         emit(Either.Left(it))
     }
 }

@@ -7,7 +7,7 @@ import com.example.teamworklesson3compose.presentation.data.remote.models.titans
 import retrofit2.http.GET
 
 private const val TITAN_ENDPOINT = "titans"
-private const val CHARACTER_ENDPOINT = "character"
+private const val CHARACTER_ENDPOINT = "characters"
 interface AttackOnTitansApiService {
 
     @GET(TITAN_ENDPOINT)
