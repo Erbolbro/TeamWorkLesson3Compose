@@ -10,4 +10,7 @@
     <string name="see_all">See all</string>
     <string name="suggestions">Suggestions for you</string>
     <string name="image_aot">image AOT</string>
+    <string name="search_icon_content_description">Search icon\n\n</string>
+    <string name="clear_text_icon_content_description">Clear text icon</string>
+    <string name="character_image_content_description">$1%s character image</string>
 </resources>
