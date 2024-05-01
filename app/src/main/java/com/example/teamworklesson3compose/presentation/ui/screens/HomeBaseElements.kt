@@ -1,4 +1,4 @@
-package com.example.teamworklesson3compose.screens
+package com.example.teamworklesson3compose.presentation.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -44,11 +44,11 @@ import coil.compose.AsyncImage
 import com.example.teamworklesson3compose.R
 import com.example.teamworklesson3compose.presentation.data.model.Characters
 import com.example.teamworklesson3compose.presentation.data.model.Titans
-import com.example.teamworklesson3compose.ui.theme.Blue
-import com.example.teamworklesson3compose.ui.theme.DarkBlue
-import com.example.teamworklesson3compose.ui.theme.DarkBlue2
-import com.example.teamworklesson3compose.ui.theme.Gray40
-import com.example.teamworklesson3compose.ui.theme.TeamWorkLesson3ComposeTheme
+import com.example.teamworklesson3compose.presentation.ui.theme.Blue
+import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
+import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue2
+import com.example.teamworklesson3compose.presentation.ui.theme.Gray40
+import com.example.teamworklesson3compose.presentation.ui.theme.TeamWorkLesson3ComposeTheme
 
 @Composable
 fun UserInfo(modifier: Modifier = Modifier) {
@@ -194,7 +194,7 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: Titans) {
 }
 
 @Composable
-fun LazyColumTitanItem(modifier: Modifier = Modifier,characters: Characters) {
+fun LazyColumTitanItem(modifier: Modifier = Modifier, characters: Characters) {
     Box(
         modifier = modifier
             .padding(12.dp)
@@ -299,7 +299,16 @@ fun GreetingPreview() {
                 LazyRowTitanItem(
                     titans = Titans("eren", "sdka", "20", "atackTitan")
                 )
-                LazyColumTitanItem(characters = Characters ("Eren Jaeger", 19, "SDK", "15 m (Titan form)", "Jaeger family","Alive"))
+                LazyColumTitanItem(
+                    characters = Characters(
+                        "Eren Jaeger",
+                        19,
+                        "SDK",
+                        "15 m (Titan form)",
+                        "Jaeger family",
+                        "Alive"
+                    )
+                )
             }
         }
     }

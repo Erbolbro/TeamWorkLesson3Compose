@@ -1,4 +1,4 @@
-package com.example.teamworklesson3compose.ui.theme
+package com.example.teamworklesson3compose.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

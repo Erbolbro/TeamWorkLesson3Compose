@@ -3,9 +3,9 @@ package com.example.teamworklesson3compose.presentation.data.remote.models.titan
 
 import com.google.gson.annotations.SerializedName
 
-data class TitansModel(
+data class TitansResponse<T>(
     @SerializedName("info")
     val info: Info,
     @SerializedName("results")
-    val results: List<Result>
+    val results: List<T>
 )

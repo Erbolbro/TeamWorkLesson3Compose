@@ -1,4 +1,4 @@
-package com.example.teamworklesson3compose.ui.theme
+package com.example.teamworklesson3compose.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
