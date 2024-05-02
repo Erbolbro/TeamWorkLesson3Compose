@@ -13,4 +13,5 @@
     <string name="search_icon_content_description">Search icon\n\n</string>
     <string name="clear_text_icon_content_description">Clear text icon</string>
     <string name="character_image_content_description">$1%s character image</string>
+    <string name="characters_aot">characters AOT</string>
 </resources>
