@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Result(
     @SerializedName("age")
-    val age: Int,
+    val age: String,
     @SerializedName("alias")
     val alias: List<String>,
     @SerializedName("birthplace")

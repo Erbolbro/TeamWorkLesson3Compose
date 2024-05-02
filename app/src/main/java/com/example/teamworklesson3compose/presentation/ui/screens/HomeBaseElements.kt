@@ -1,6 +1,5 @@
 package com.example.teamworklesson3compose.presentation.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,9 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -25,7 +21,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -45,7 +40,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.teamworklesson3compose.R
 import com.example.teamworklesson3compose.presentation.data.remote.models.persons.Result
@@ -56,96 +50,6 @@ import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue2
 import com.example.teamworklesson3compose.presentation.ui.theme.Gray40
 import com.example.teamworklesson3compose.presentation.ui.theme.TeamWorkLesson3ComposeTheme
-import com.example.teamworklesson3compose.presentation.ui.viewmodels.AOTViewModel
-import com.example.teamworklesson3compose.presentation.utils.UiState
-
-@Composable
-fun CharactersScreen(
-    modifier: Modifier = Modifier,
-    viewModel: AOTViewModel = hiltViewModel()
-) {
-    val characters by viewModel.charactersState.observeAsState()
-    val titans by viewModel.titansState.observeAsState()
-    Box(modifier = Modifier.background(color = DarkBlue).padding(4.dp)) {
-        Column {
-            UserInfo(modifier = Modifier.fillMaxWidth())
-            SearchAccount()
-            SuggestionsDesign()
-            LazyRow(modifier = Modifier) {
-                when (titans) {
-                    is UiState.Error -> {
-                        Log.e("titans", "CharactersScreen: ${(titans as UiState.Error).message}")
-                    }
-
-                    is UiState.Loading -> {
-                    }
-
-                    is UiState.Success -> {
-                        (titans as UiState.Success<List<ResultTitan>>).data?.let {
-                            items(it) { item ->
-                                LazyRowTitanItem(titans = item)
-                            }
-                        }
-                    }
-
-                    null -> {
-                    }
-                }
-            }
-            LazyColumn(modifier = Modifier) {
-                when (characters) {
-                    is UiState.Error ->
-                        Log.e(
-                            "characters",
-                            "ошибка: ${(characters as UiState.Error).message}"
-                        )
-
-                    UiState.Loading -> {
-                    }
-
-                    is UiState.Success -> (characters as UiState.Success<List<Result>>).data?.let {
-                        items(it) { item ->
-                            LazyColumTitanItem(characters = item)
-                        }
-                    }
-
-                    null -> {
-
-                    }
-                }
-            }
-        }
-    }
-
-//    characters?.let { uiState ->
-//        when (uiState) {
-//            is UiState.Error -> {Log.e("error",uiState.message ?: "Unknown",uiState.throwable)}
-//            UiState.Loading -> {
-//                Box(
-//                    modifier = Modifier.fillMaxSize(),
-//                    contentAlignment = Alignment.Center
-//                ) {
-//                    CircularProgressIndicator(color = Black)
-//                }
-//            }
-//
-//            is UiState.Success -> {
-//                LazyHorizontalGrid(
-//                    modifier = Modifier,
-//                    state = gridState,
-//                    rows = GridCells.Fixed(10)
-//                ) {
-//                    uiState.data?.let {
-//                        items(it) { character ->
-//                            CharacterItem(character = character)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-}
 
 @Composable
 fun UserInfo(modifier: Modifier = Modifier) {
@@ -278,10 +182,10 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
                     .align(Alignment.BottomStart),
             ) {
                 Text(
-                    text = titans.name, color = Black, fontSize = 16.sp
+                    text = titans.name, color = White, fontSize = 16.sp
                 )
                 Text(
-                    text = titans.allegiance, color = Black, fontSize = 18.sp
+                    text = titans.allegiance, color = White, fontSize = 18.sp
                 )
             }
         }
@@ -290,9 +194,9 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
 
 @Composable
 fun LazyColumTitanItem(modifier: Modifier = Modifier, characters: Result) {
-    Card(modifier = Modifier) {
+    Card(modifier = Modifier.background(DarkBlue)) {
         Box(
-            modifier = modifier
+            modifier = modifier.background(DarkBlue)
                 .padding(12.dp)
                 .clip(RoundedCornerShape(10.dp))
                 .background(DarkBlue2)
@@ -300,7 +204,7 @@ fun LazyColumTitanItem(modifier: Modifier = Modifier, characters: Result) {
         ) {
             AsyncImage(
                 modifier = modifier
-                    .size(120.dp)
+                    .size(140.dp)
                     .padding(10.dp)
                     .clip(RoundedCornerShape(10.dp)),
                 model = characters.img,
@@ -321,66 +225,68 @@ fun LazyColumTitanItem(modifier: Modifier = Modifier, characters: Result) {
                             contentDescription = "",
                             tint = DarkGray
                         )
-                        Text(
-                            modifier = Modifier.padding(top = 12.dp),
-                            text = characters.age.toString(),
-                            fontSize = 14.sp,
-                            color = White,
-                        )
+
                     }
-                    Row {
-                        Icon(
-                            modifier = Modifier.padding(top = 12.dp),
-                            painter = painterResource(id = R.drawable.dollar),
-                            contentDescription = "",
-                            tint = DarkGray
-                        )
-                        Text(
-                            modifier = Modifier.padding(top = 12.dp),
-                            text = characters.gender,
-                            fontSize = 13.sp,
-                            color = White
-                        )
-                        Text(
-                            modifier = Modifier.padding(top = 12.dp),
-                            text = characters.status,
-                            fontSize = 13.sp,
-                            color = Gray
-                        )
-                        Icon(
-                            modifier = Modifier
-                                .padding(top = 12.dp)
-                                .padding(start = 26.dp),
-                            painter = painterResource(id = R.drawable.location),
-                            contentDescription = "",
-                            tint = DarkGray
-                        )
-                        Text(
-                            modifier = Modifier.padding(top = 12.dp),
-                            text = characters.height,
-                            fontSize = 13.sp,
-                            color = Gray
-                        )
-                    }
-                }
-                Row(
-                    modifier = Modifier
-                        .padding(top = 12.dp)
-                        .clip(RoundedCornerShape(4.dp))
-                        .background(Gray40)
-                ) {
-                    Text(modifier = Modifier, text = characters.birthplace, color = White)
-                    Icon(
-                        modifier = Modifier.size(22.dp),
-                        painter = painterResource(id = R.drawable.ic_rating),
-                        contentDescription = "",
-                        tint = Yellow
+                    Text(
+                        modifier = Modifier.padding(top = 12.dp),
+                        text = characters.age,
+                        fontSize = 14.sp,
+                        color = White,
                     )
                 }
+                Row {
+                    Icon(
+                        modifier = Modifier.padding(top = 12.dp),
+                        painter = painterResource(id = R.drawable.dollar),
+                        contentDescription = "",
+                        tint = DarkGray
+                    )
+                    Text(
+                        modifier = Modifier.padding(top = 12.dp),
+                        text = characters.gender,
+                        fontSize = 13.sp,
+                        color = White
+                    )
+                    Text(
+                        modifier = Modifier.padding(top = 12.dp),
+                        text = characters.status,
+                        fontSize = 13.sp,
+                        color = Gray
+                    )
+                    Icon(
+                        modifier = Modifier
+                            .padding(top = 12.dp)
+                            .padding(start = 26.dp),
+                        painter = painterResource(id = R.drawable.location),
+                        contentDescription = "",
+                        tint = DarkGray
+                    )
+                    Text(
+                        modifier = Modifier.padding(top = 12.dp),
+                        text = characters.height,
+                        fontSize = 13.sp,
+                        color = Gray
+                    )
+                }
+            }
+            Row(
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .clip(RoundedCornerShape(4.dp))
+                    .background(Gray40)
+            ) {
+//                Text(modifier = Modifier, text = characters.birthplace, color = White)
+//                Icon(
+//                    modifier = Modifier.size(22.dp),
+//                    painter = painterResource(id = R.drawable.ic_rating),
+//                    contentDescription = "",
+//                    tint = Yellow
+//                )
             }
         }
     }
 }
+
 
 @Preview
 @Composable
