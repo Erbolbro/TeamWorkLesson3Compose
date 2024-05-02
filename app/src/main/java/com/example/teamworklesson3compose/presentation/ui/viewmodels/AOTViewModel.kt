@@ -26,7 +26,6 @@ class AOTViewModel @Inject constructor(
             repository.getCharacters().collectFlowAsState(
                 _charactersState
             )
-            delay(2000)
             repository.getTitans().collectFlowAsState(
                 _titansState
             )

@@ -7,24 +7,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -54,11 +48,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.teamworklesson3compose.R
-import com.example.teamworklesson3compose.presentation.data.model.Characters
-import com.example.teamworklesson3compose.presentation.data.model.Titans
-import com.example.teamworklesson3compose.presentation.data.remote.models.titans.Info
+import com.example.teamworklesson3compose.presentation.data.remote.models.persons.Result
 import com.example.teamworklesson3compose.presentation.data.remote.models.titans.ResultTitan
-import com.example.teamworklesson3compose.presentation.data.remote.models.titans.TitansResponse
 import com.example.teamworklesson3compose.presentation.ui.theme.Black_transparent
 import com.example.teamworklesson3compose.presentation.ui.theme.Blue
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
@@ -73,34 +64,54 @@ fun CharactersScreen(
     modifier: Modifier = Modifier,
     viewModel: AOTViewModel = hiltViewModel()
 ) {
-    val gridState = rememberLazyGridState()
     val characters by viewModel.charactersState.observeAsState()
     val titans by viewModel.titansState.observeAsState()
+    Box(modifier = Modifier.background(color = DarkBlue).padding(4.dp)) {
+        Column {
+            UserInfo(modifier = Modifier.fillMaxWidth())
+            SearchAccount()
+            SuggestionsDesign()
+            LazyRow(modifier = Modifier) {
+                when (titans) {
+                    is UiState.Error -> {
+                        Log.e("titans", "CharactersScreen: ${(titans as UiState.Error).message}")
+                    }
 
-    Column {
-        UserInfo()
-        SearchAccount()
-        SuggestionsDesign()
-        LazyRow(modifier = Modifier) {
-            when (titans) {
-                is UiState.Error -> {
-                    Log.e("titans", "CharactersScreen: ${(titans as UiState.Error).message}", )
-                }
+                    is UiState.Loading -> {
+                    }
 
-                is UiState.Loading -> {
-
-                }
-
-                is UiState.Success -> {
-                    (titans as UiState.Success<List<ResultTitan>>).data?.let {
-                        items(it) { item ->
-                            LazyRowTitanItem(titans = item)
+                    is UiState.Success -> {
+                        (titans as UiState.Success<List<ResultTitan>>).data?.let {
+                            items(it) { item ->
+                                LazyRowTitanItem(titans = item)
+                            }
                         }
                     }
+
+                    null -> {
+                    }
                 }
+            }
+            LazyColumn(modifier = Modifier) {
+                when (characters) {
+                    is UiState.Error ->
+                        Log.e(
+                            "characters",
+                            "ошибка: ${(characters as UiState.Error).message}"
+                        )
 
-                null -> {
+                    UiState.Loading -> {
+                    }
 
+                    is UiState.Success -> (characters as UiState.Success<List<Result>>).data?.let {
+                        items(it) { item ->
+                            LazyColumTitanItem(characters = item)
+                        }
+                    }
+
+                    null -> {
+
+                    }
                 }
             }
         }
@@ -229,7 +240,7 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
             modifier = modifier
         ) {
             AsyncImage(
-                modifier = Modifier.size(180.dp,200.dp),
+                modifier = Modifier.size(180.dp, 200.dp),
                 model = titans.img,
                 contentDescription = stringResource(R.string.image_aot),
                 placeholder = painterResource(
@@ -278,94 +289,94 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
 }
 
 @Composable
-fun LazyColumTitanItem(modifier: Modifier = Modifier, characters: Characters) {
-    Box(
-        modifier = modifier
-            .padding(12.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .background(DarkBlue2)
-            .fillMaxWidth()
-    ) {
-        Row {
-            Image(
+fun LazyColumTitanItem(modifier: Modifier = Modifier, characters: Result) {
+    Card(modifier = Modifier) {
+        Box(
+            modifier = modifier
+                .padding(12.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(DarkBlue2)
+                .fillMaxWidth()
+        ) {
+            AsyncImage(
                 modifier = modifier
                     .size(120.dp)
                     .padding(10.dp)
                     .clip(RoundedCornerShape(10.dp)),
-                painter = painterResource(id = R.drawable.eron),
-                contentDescription = stringResource(R.string.welcome_back),
-                contentScale = ContentScale.Crop,
+                model = characters.img,
+                contentDescription = stringResource(R.string.characters_aot),
             )
-
-            Column {
-                Text(
-                    modifier = Modifier.padding(top = 12.dp),
-                    text = "Eren Jaeger",
-                    fontSize = 18.sp,
-                    color = White
-                )
-                Row {
-                    Icon(
-                        modifier = Modifier.padding(top = 12.dp),
-                        painter = painterResource(R.drawable.calendar),
-                        contentDescription = "",
-                        tint = DarkGray
-                    )
+            Row {
+                Column {
                     Text(
                         modifier = Modifier.padding(top = 12.dp),
-                        text = "19",
-                        fontSize = 13.sp,
+                        text = characters.name,
+                        fontSize = 18.sp,
                         color = White
                     )
+                    Row {
+                        Icon(
+                            modifier = Modifier.padding(top = 12.dp),
+                            painter = painterResource(R.drawable.calendar),
+                            contentDescription = "",
+                            tint = DarkGray
+                        )
+                        Text(
+                            modifier = Modifier.padding(top = 12.dp),
+                            text = characters.age.toString(),
+                            fontSize = 14.sp,
+                            color = White,
+                        )
+                    }
+                    Row {
+                        Icon(
+                            modifier = Modifier.padding(top = 12.dp),
+                            painter = painterResource(id = R.drawable.dollar),
+                            contentDescription = "",
+                            tint = DarkGray
+                        )
+                        Text(
+                            modifier = Modifier.padding(top = 12.dp),
+                            text = characters.gender,
+                            fontSize = 13.sp,
+                            color = White
+                        )
+                        Text(
+                            modifier = Modifier.padding(top = 12.dp),
+                            text = characters.status,
+                            fontSize = 13.sp,
+                            color = Gray
+                        )
+                        Icon(
+                            modifier = Modifier
+                                .padding(top = 12.dp)
+                                .padding(start = 26.dp),
+                            painter = painterResource(id = R.drawable.location),
+                            contentDescription = "",
+                            tint = DarkGray
+                        )
+                        Text(
+                            modifier = Modifier.padding(top = 12.dp),
+                            text = characters.height,
+                            fontSize = 13.sp,
+                            color = Gray
+                        )
+                    }
                 }
-                Row {
+                Row(
+                    modifier = Modifier
+                        .padding(top = 12.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(Gray40)
+                ) {
+                    Text(modifier = Modifier, text = characters.birthplace, color = White)
                     Icon(
-                        modifier = Modifier.padding(top = 12.dp),
-                        painter = painterResource(id = R.drawable.dollar),
+                        modifier = Modifier.size(22.dp),
+                        painter = painterResource(id = R.drawable.ic_rating),
                         contentDescription = "",
-                        tint = DarkGray
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 12.dp),
-                        text = "15 m (Titan form)",
-                        fontSize = 13.sp,
-                        color = White
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 12.dp),
-                        text = "/day",
-                        fontSize = 13.sp,
-                        color = Gray
-                    )
-                    Icon(
-                        modifier = Modifier
-                            .padding(top = 12.dp)
-                            .padding(start = 26.dp),
-                        painter = painterResource(id = R.drawable.location),
-                        contentDescription = "",
-                        tint = DarkGray
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 12.dp),
-                        text = "Jaeger family",
-                        fontSize = 13.sp,
-                        color = Gray
+                        tint = Yellow
                     )
                 }
-            }
-            Row(
-                modifier = Modifier
-                    .padding(top = 12.dp)
-                    .clip(RoundedCornerShape(4.dp))
-                    .background(Gray40)
-            ) {
-                Text(modifier = Modifier, text = "Alive", color = White)
-                Icon(
-                    modifier = Modifier.size(22.dp),
-                    painter = painterResource(id = R.drawable.ic_rating),
-                    contentDescription = "",
-                    tint = Yellow
-                )
             }
         }
     }
@@ -383,17 +394,28 @@ fun GreetingPreview() {
 //                LazyRowTitanItem(
 //                    titans = TitansResponse(Info(0,0,0,0), listOf(ResultTitan(abilities = "", allegiance = "", currentInheritor = "", formerInheritors = listOf(""), height = "",)))
 //                )
-                LazyColumTitanItem(
-                    characters = Characters(
-                        "Eren Jaeger",
-                        19,
-                        "SDK",
-                        "15 m (Titan form)",
-                        "Jaeger family",
-                        "Alive"
-                    )
-                )
+//                LazyColumTitanItem(
+//                    characters = Result(
+//                        0, listOf(),
+//                        "",
+//                        listOf(),
+//                        "",
+//                        listOf(),
+//                        "",
+//                        0,
+//                        "",
+//                        "",
+//                        "",
+//                        listOf(),
+//                        "",
+//                        listOf(),
+//                        listOf(),
+//                        "",
+//
+//                        )
+//                )
             }
         }
     }
+
 }
