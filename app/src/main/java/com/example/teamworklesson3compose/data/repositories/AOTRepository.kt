@@ -1,7 +1,7 @@
-package com.example.teamworklesson3compose.presentation.data.repositories
+package com.example.teamworklesson3compose.data.repositories
 
-import com.example.teamworklesson3compose.presentation.data.remote.apiservices.AttackOnTitansApiService
-import com.example.teamworklesson3compose.presentation.utils.base.BaseRepository
+import com.example.teamworklesson3compose.data.remote.apiservices.AttackOnTitansApiService
+import com.example.teamworklesson3compose.utils.base.BaseRepository
 import javax.inject.Inject
 
 class AOTRepository @Inject constructor(

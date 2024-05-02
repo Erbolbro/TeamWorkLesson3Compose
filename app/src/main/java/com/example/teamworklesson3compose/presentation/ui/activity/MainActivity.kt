@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.teamworklesson3compose.presentation.ui.screens.CharactersScreen
-import com.example.teamworklesson3compose.presentation.ui.screens.GreetingPreview
 import com.example.teamworklesson3compose.presentation.ui.theme.TeamWorkLesson3ComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 

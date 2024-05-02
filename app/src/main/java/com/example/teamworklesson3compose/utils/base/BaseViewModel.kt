@@ -1,18 +1,16 @@
-package com.example.teamworklesson3compose.presentation.utils.base
+package com.example.teamworklesson3compose.utils.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.teamworklesson3compose.presentation.utils.Either
-import com.example.teamworklesson3compose.presentation.utils.UiState
+import com.example.teamworklesson3compose.utils.Either
+import com.example.teamworklesson3compose.utils.UiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-
 typealias UiStateLiveData<T> = LiveData<UiState<T>>
 
 abstract class BaseViewModel : ViewModel() {
-
     protected open fun <T> uiStateLiveData() = MutableLiveData<UiState<T>>(UiState.Loading)
 
     protected open fun <T> Flow<Either<Throwable, T>>.collectFlowAsState(
