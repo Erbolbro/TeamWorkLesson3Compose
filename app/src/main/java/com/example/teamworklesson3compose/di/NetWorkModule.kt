@@ -1,6 +1,6 @@
-package com.example.teamworklesson3compose.presentation.di
+package com.example.teamworklesson3compose.di
 
-import com.example.teamworklesson3compose.presentation.data.remote.apiservices.AttackOnTitansApiService
+import com.example.teamworklesson3compose.data.remote.apiservices.AttackOnTitansApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,4 +45,4 @@ object NetWorkModule {
     }
 }
 
-const val BASE_URL = "https://api.attackontitanapi.com/"
+ private const val BASE_URL = "https://api.attackontitanapi.com/"

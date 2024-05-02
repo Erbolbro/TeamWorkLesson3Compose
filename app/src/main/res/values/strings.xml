@@ -14,4 +14,7 @@
     <string name="clear_text_icon_content_description">Clear text icon</string>
     <string name="character_image_content_description">$1%s character image</string>
     <string name="characters_aot">characters AOT</string>
+    <string name="location">location</string>
+    <string name="dollars_icon">dollars_icon</string>
+    <string name="the_characters">The Characters</string>
 </resources>

@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -29,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.Color.Companion.Yellow
@@ -37,19 +37,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.teamworklesson3compose.R
-import com.example.teamworklesson3compose.presentation.data.remote.models.persons.Result
-import com.example.teamworklesson3compose.presentation.data.remote.models.titans.ResultTitan
+import com.example.teamworklesson3compose.data.remote.models.persons.Result
+import com.example.teamworklesson3compose.data.remote.models.titans.ResultTitan
 import com.example.teamworklesson3compose.presentation.ui.theme.Black_transparent
 import com.example.teamworklesson3compose.presentation.ui.theme.Blue
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue2
-import com.example.teamworklesson3compose.presentation.ui.theme.Gray40
-import com.example.teamworklesson3compose.presentation.ui.theme.TeamWorkLesson3ComposeTheme
 
 @Composable
 fun UserInfo(modifier: Modifier = Modifier) {
@@ -193,135 +190,92 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
 }
 
 @Composable
-fun LazyColumTitanItem(modifier: Modifier = Modifier, characters: Result) {
+fun TheBestCharacter(modifier: Modifier = Modifier) {
+    Text(text = stringResource(R.string.the_characters), fontSize = 20.sp, color = White)
+}
+
+@Composable
+fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Result) {
     Card(modifier = Modifier.background(DarkBlue)) {
         Box(
-            modifier = modifier.background(DarkBlue)
+            modifier = modifier
+                .background(DarkBlue)
                 .padding(12.dp)
                 .clip(RoundedCornerShape(10.dp))
                 .background(DarkBlue2)
                 .fillMaxWidth()
+                .height(112.dp)
         ) {
-            AsyncImage(
-                modifier = modifier
-                    .size(140.dp)
-                    .padding(10.dp)
-                    .clip(RoundedCornerShape(10.dp)),
-                model = characters.img,
-                contentDescription = stringResource(R.string.characters_aot),
-            )
-            Row {
-                Column {
-                    Text(
-                        modifier = Modifier.padding(top = 12.dp),
-                        text = characters.name,
-                        fontSize = 18.sp,
-                        color = White
-                    )
-                    Row {
-                        Icon(
-                            modifier = Modifier.padding(top = 12.dp),
-                            painter = painterResource(R.drawable.calendar),
-                            contentDescription = "",
-                            tint = DarkGray
+            Row(modifier = Modifier) {
+                AsyncImage(
+                    modifier = Modifier
+                        .clip(shape = ShapeDefaults.ExtraLarge)
+                        .size(140.dp)
+                        .padding(10.dp),
+                    model = characters.img,
+                    contentDescription = stringResource(R.string.characters_aot),
+                )
+
+                Column(
+                    modifier = Modifier
+                        .padding(6.dp)
+                        .align(Alignment.CenterVertically)
+                ) {
+                    Row(modifier = Modifier) {
+                        Text(
+                            text = characters.name,
+                            fontSize = 14.sp,
+                            color = White,
+                            maxLines = 1
                         )
+                        Spacer(modifier = Modifier.width(40.dp))
+                        Icon(
+                            modifier = Modifier.size(16.dp),
+                            painter = painterResource(id = R.drawable.ic_rating),
+                            contentDescription = "",
+                            tint = Yellow,
+                        )
+                        Text(text = characters.age, fontSize = 16.sp, maxLines = 1, color = White)
 
                     }
-                    Text(
-                        modifier = Modifier.padding(top = 12.dp),
-                        text = characters.age,
-                        fontSize = 14.sp,
-                        color = White,
-                    )
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            modifier = Modifier.size(16.dp),
+                            painter = painterResource(id = R.drawable.calendar_icon),
+                            contentDescription = "calendar icon"
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            modifier = Modifier.width(80.dp),
+                            text = characters.height,
+                            color = White,
+                            fontSize = 16.sp,
+                            maxLines = 1
+                        )
+                    }
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.dollar_icon),
+                            contentDescription = stringResource(R.string.dollars_icon)
+                        )
+                        Text(
+                            text = characters.status,
+                            color = White,
+                            fontSize = 16.sp
+                        )
+                        Spacer(modifier = Modifier.width(40.dp))
+                        Icon(
+                            painter = painterResource(id = R.drawable.location_icon),
+                            contentDescription = stringResource(
+                                R.string.location
+                            )
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(text = characters.occupation, color = White, fontSize = 16.sp)
+                    }
                 }
-                Row {
-                    Icon(
-                        modifier = Modifier.padding(top = 12.dp),
-                        painter = painterResource(id = R.drawable.dollar),
-                        contentDescription = "",
-                        tint = DarkGray
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 12.dp),
-                        text = characters.gender,
-                        fontSize = 13.sp,
-                        color = White
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 12.dp),
-                        text = characters.status,
-                        fontSize = 13.sp,
-                        color = Gray
-                    )
-                    Icon(
-                        modifier = Modifier
-                            .padding(top = 12.dp)
-                            .padding(start = 26.dp),
-                        painter = painterResource(id = R.drawable.location),
-                        contentDescription = "",
-                        tint = DarkGray
-                    )
-                    Text(
-                        modifier = Modifier.padding(top = 12.dp),
-                        text = characters.height,
-                        fontSize = 13.sp,
-                        color = Gray
-                    )
-                }
-            }
-            Row(
-                modifier = Modifier
-                    .padding(top = 12.dp)
-                    .clip(RoundedCornerShape(4.dp))
-                    .background(Gray40)
-            ) {
-//                Text(modifier = Modifier, text = characters.birthplace, color = White)
-//                Icon(
-//                    modifier = Modifier.size(22.dp),
-//                    painter = painterResource(id = R.drawable.ic_rating),
-//                    contentDescription = "",
-//                    tint = Yellow
-//                )
             }
         }
     }
-}
-
-
-@Preview
-@Composable
-fun GreetingPreview() {
-    TeamWorkLesson3ComposeTheme {
-        Box(modifier = Modifier.background(DarkBlue)) {
-            Column {
-                UserInfo(modifier = Modifier.fillMaxWidth())
-                SearchAccount()
-                SuggestionsDesign(modifier = Modifier.fillMaxWidth())
-//                LazyRowTitanItem(
-//                    titans = TitansResponse(Info(0,0,0,0), listOf(ResultTitan(abilities = "", allegiance = "", currentInheritor = "", formerInheritors = listOf(""), height = "",)))
-//                )
-//                LazyColumTitanItem(
-//                    characters = Result(
-//                        0, listOf(),
-//                        "",
-//                        listOf(),
-//                        "",
-//                        listOf(),
-//                        "",
-//                        0,
-//                        "",
-//                        "",
-//                        "",
-//                        listOf(),
-//                        "",
-//                        listOf(),
-//                        listOf(),
-//                        "",
-//
-//                        )
-//                )
-            }
-        }
-    }
-
 }
