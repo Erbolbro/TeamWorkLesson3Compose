@@ -8,6 +8,7 @@ import com.example.teamworklesson3compose.utils.Either
 import com.example.teamworklesson3compose.utils.UiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+
 typealias UiStateLiveData<T> = LiveData<UiState<T>>
 
 abstract class BaseViewModel : ViewModel() {

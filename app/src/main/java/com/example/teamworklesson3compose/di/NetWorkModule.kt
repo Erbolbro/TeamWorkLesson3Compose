@@ -45,4 +45,4 @@ object NetWorkModule {
     }
 }
 
- private const val BASE_URL = "https://api.attackontitanapi.com/"
+private const val BASE_URL = "https://api.attackontitanapi.com/"

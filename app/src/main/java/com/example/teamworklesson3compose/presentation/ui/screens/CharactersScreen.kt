@@ -37,20 +37,26 @@ fun CharactersScreen(
             .padding(4.dp)
     ) {
         Column {
-            UserInfo(modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp))
+            UserInfo(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            )
             SearchAccount()
-            Spacer(modifier = Modifier
-                .height(20.dp)
-                .width(20.dp)
-                .padding(6.dp))
+            Spacer(
+                modifier = Modifier
+                    .height(20.dp)
+                    .width(20.dp)
+                    .padding(6.dp)
+            )
 
             SuggestionsDesign()
-            Spacer(modifier = Modifier
-                .height(20.dp)
-                .width(20.dp)
-                .padding(6.dp))
+            Spacer(
+                modifier = Modifier
+                    .height(20.dp)
+                    .width(20.dp)
+                    .padding(6.dp)
+            )
             LazyRow(modifier = Modifier.padding(4.dp)) {
                 when (titans) {
                     is UiState.Error -> {
@@ -95,6 +101,7 @@ fun CharactersScreen(
                             LazyColumCharacterItem(characters = item)
                         }
                     }
+
                     null -> {
                     }
                 }

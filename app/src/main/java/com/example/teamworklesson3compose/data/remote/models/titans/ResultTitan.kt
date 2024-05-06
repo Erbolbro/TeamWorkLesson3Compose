@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ResultTitan(
     @SerializedName("abilities")
-    val abilities:List<String>,
+    val abilities: List<String>,
     @SerializedName("allegiance")
     val allegiance: String,
     @SerializedName("current_inheritor")

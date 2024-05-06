@@ -17,8 +17,9 @@ interface AttackOnTitansApiService {
 
     @GET(CHARACTER_ENDPOINT)
     suspend fun getCharacter(): CharactersResponse<Result>
+
     @GET(CHARACTER_ENDPOINT)
     suspend fun search(
-        @Query("name") name:String
-    ):CharactersResponse<Result>
+        @Query("name") name: String
+    ): CharactersResponse<Result>
 }
