@@ -18,8 +18,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.teamworklesson3compose.data.remote.models.persons.Result
-import com.example.teamworklesson3compose.data.remote.models.titans.ResultTitan
+import com.example.teamworklesson3compose.data.remote.models.persons.ResultCharacterDto
+import com.example.teamworklesson3compose.data.remote.models.titans.ResultTitanDto
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
 import com.example.teamworklesson3compose.presentation.ui.viewmodels.AOTViewModel
 import com.example.teamworklesson3compose.utils.UiState
@@ -67,7 +67,7 @@ fun CharactersScreen(
                     }
 
                     is UiState.Success -> {
-                        (titans as UiState.Success<List<ResultTitan>>).data?.let {
+                        (titans as UiState.Success<List<ResultTitanDto>>).data?.let {
                             items(it) { item ->
                                 LazyRowTitanItem(titans = item)
                                 Spacer(modifier = Modifier.width(12.dp))
@@ -96,7 +96,7 @@ fun CharactersScreen(
                     UiState.Loading -> {
                     }
 
-                    is UiState.Success -> (characters as UiState.Success<List<Result>>).data?.let {
+                    is UiState.Success -> (characters as UiState.Success<List<ResultCharacterDto>>).data?.let {
                         items(it) { item ->
                             LazyColumCharacterItem(characters = item)
                         }

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 abstract class BaseRepository {
+
     protected fun <T> doRequest(
         request: suspend () -> T,
     ) = flow<Either<Throwable, T>> {
