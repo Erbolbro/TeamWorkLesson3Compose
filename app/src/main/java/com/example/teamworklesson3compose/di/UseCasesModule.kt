@@ -39,5 +39,4 @@ object UseCasesModule {
     fun provideRepository(apiService: AttackOnTitansApiService): AOTRepository {
         return AOTRepositoryImpl(apiService)
     }
-
 }

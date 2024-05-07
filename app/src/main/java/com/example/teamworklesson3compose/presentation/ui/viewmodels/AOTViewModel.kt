@@ -3,8 +3,8 @@ package com.example.teamworklesson3compose.presentation.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.teamworklesson3compose.data.remote.models.persons.Result
-import com.example.teamworklesson3compose.data.remote.models.titans.ResultTitan
+import com.example.teamworklesson3compose.domain.entities.Character
+import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.example.teamworklesson3compose.domain.usecases.GetCharactersUseCase
 import com.example.teamworklesson3compose.domain.usecases.GetTitansUseCase
 import com.example.teamworklesson3compose.domain.usecases.SearchCharactersUseCase
@@ -21,15 +21,15 @@ class AOTViewModel @Inject constructor(
     private val getTitansUseCase: GetTitansUseCase,
     private val searchCharactersUseCase: SearchCharactersUseCase
 ) : BaseViewModel() {
-    private val _charactersState = MutableLiveData<UiState<List<Result>>>()
-    val charactersState: LiveData<UiState<List<Result>>>
+    private val _charactersState = MutableLiveData<UiState<List<Character>>>()
+    val charactersState: LiveData<UiState<List<Character>>>
         get() = _charactersState
 
     private val _titansState = MutableLiveData<UiState<List<ResultTitan>>>()
     val titansState: LiveData<UiState<List<ResultTitan>>>
         get() = _titansState
-    private val _searchCharactersState = MutableLiveData<UiState<List<Result>>>()
-    val searchCharactersState: LiveData<UiState<List<Result>>> get() = _searchCharactersState
+    private val _searchCharactersState = MutableLiveData<UiState<List<Character>>>()
+    val searchCharactersState: LiveData<UiState<List<Character>>> get() = _searchCharactersState
 
     init {
         viewModelScope.launch {

@@ -1,9 +1,10 @@
 package com.example.teamworklesson3compose.data.remote.models.titans
 
 
+import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.google.gson.annotations.SerializedName
 
-data class ResultTitan(
+data class ResultTitanDto(
     @SerializedName("abilities")
     val abilities: List<String>,
     @SerializedName("allegiance")
@@ -21,3 +22,6 @@ data class ResultTitan(
     @SerializedName("name")
     val name: String
 )
+
+fun ResultTitanDto.toDomain() =
+    ResultTitan(abilities, allegiance, currentInheritor, formerInheritors, height, id, img, name)

@@ -41,8 +41,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.teamworklesson3compose.R
-import com.example.teamworklesson3compose.data.remote.models.persons.Result
-import com.example.teamworklesson3compose.data.remote.models.titans.ResultTitan
+import com.example.teamworklesson3compose.data.remote.models.persons.ResultCharacterDto
+import com.example.teamworklesson3compose.data.remote.models.titans.ResultTitanDto
 import com.example.teamworklesson3compose.presentation.ui.theme.Black_transparent
 import com.example.teamworklesson3compose.presentation.ui.theme.Blue
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
@@ -135,7 +135,7 @@ fun SuggestionsDesign(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
+fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitanDto) {
     Card(modifier = Modifier) {
         Box(
             modifier = modifier
@@ -195,7 +195,7 @@ fun TheBestCharacter(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Result) {
+fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: ResultCharacterDto) {
     Card(modifier = Modifier.background(DarkBlue)) {
         Box(
             modifier = modifier
