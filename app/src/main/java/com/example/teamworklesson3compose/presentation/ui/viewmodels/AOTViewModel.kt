@@ -28,6 +28,7 @@ class AOTViewModel @Inject constructor(
     private val _titansState = MutableLiveData<UiState<List<ResultTitan>>>()
     val titansState: LiveData<UiState<List<ResultTitan>>>
         get() = _titansState
+
     private val _searchCharactersState = MutableLiveData<UiState<List<Character>>>()
     val searchCharactersState: LiveData<UiState<List<Character>>> get() = _searchCharactersState
 
@@ -35,6 +36,7 @@ class AOTViewModel @Inject constructor(
         viewModelScope.launch {
             getCharacters()
             getTitans()
+            searchCharacters(name = String())
         }
     }
 
