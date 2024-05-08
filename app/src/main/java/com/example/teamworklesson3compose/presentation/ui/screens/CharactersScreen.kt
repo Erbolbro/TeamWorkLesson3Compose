@@ -16,14 +16,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.teamworklesson3compose.data.remote.models.persons.ResultCharacterDto
 import com.example.teamworklesson3compose.data.remote.models.titans.ResultTitanDto
+import com.example.teamworklesson3compose.domain.entities.Character
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
 import com.example.teamworklesson3compose.presentation.ui.viewmodels.AOTViewModel
 import com.example.teamworklesson3compose.utils.UiState
 
+@Preview
 @Composable
 fun CharactersScreen(
     modifier: Modifier = Modifier,
@@ -31,6 +34,7 @@ fun CharactersScreen(
 ) {
     val characters by viewModel.charactersState.observeAsState()
     val titans by viewModel.titansState.observeAsState()
+    val searchCharacter by viewModel.searchCharactersState.observeAsState()
     Box(
         modifier = Modifier
             .background(color = DarkBlue)
@@ -43,6 +47,21 @@ fun CharactersScreen(
                     .padding(8.dp)
             )
             SearchAccount()
+            when(searchCharacter){
+                is UiState.Error -> {
+                    Log.e("tag", "CharactersScreen:${(searchCharacter as UiState.Error).message} ", )
+                }
+                UiState.Loading -> {
+
+                }
+                is UiState.Success -> {
+                    (searchCharacter as UiState .Success<List<Character>>).data?.let {
+                        
+                    }
+                }
+                null -> TODO()
+            }
+
             Spacer(
                 modifier = Modifier
                     .height(20.dp)
@@ -80,11 +99,12 @@ fun CharactersScreen(
                 }
             }
             Spacer(modifier = Modifier.height(15.dp))
+
             TheBestCharacter(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp)
-            )
+                    .padding(10.dp))
+
             LazyColumn(modifier = Modifier) {
                 when (characters) {
                     is UiState.Error ->
