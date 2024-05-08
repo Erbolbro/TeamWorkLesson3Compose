@@ -45,6 +45,8 @@ import coil.compose.AsyncImage
 import com.example.teamworklesson3compose.R
 import com.example.teamworklesson3compose.data.remote.models.persons.ResultCharacterDto
 import com.example.teamworklesson3compose.data.remote.models.titans.ResultTitanDto
+import com.example.teamworklesson3compose.domain.entities.Character
+import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.example.teamworklesson3compose.presentation.ui.theme.Black_transparent
 import com.example.teamworklesson3compose.presentation.ui.theme.Blue
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
@@ -92,7 +94,7 @@ fun UserInfo(modifier: Modifier = Modifier) {
     Spacer(modifier = Modifier.height(20.dp))
 }
 
-@Preview(showBackground = true)
+
 @Composable
 fun SearchAccount() {
     var text by remember {
@@ -160,7 +162,7 @@ fun SuggestionsDesign(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitanDto) {
+fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
     Card(modifier = Modifier) {
         Box(
             modifier = modifier
@@ -232,7 +234,7 @@ fun TheBestCharacter(modifier: Modifier) {
 }
 
 @Composable
-fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: ResultCharacterDto) {
+fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Character) {
     Card(modifier = Modifier.background(DarkBlue)) {
         Box(
             modifier = modifier
