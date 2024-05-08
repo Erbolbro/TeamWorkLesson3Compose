@@ -17,4 +17,6 @@
     <string name="location">location</string>
     <string name="dollars_icon">dollars_icon</string>
     <string name="the_characters">The Characters</string>
+    <string name="character">Картинка персонажа</string>
+    <string name="name">Имя персонажа</string>
 </resources>
