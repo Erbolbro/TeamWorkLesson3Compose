@@ -38,13 +38,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.teamworklesson3compose.R
-import com.example.teamworklesson3compose.data.remote.models.persons.ResultCharacterDto
-import com.example.teamworklesson3compose.data.remote.models.titans.ResultTitanDto
 import com.example.teamworklesson3compose.domain.entities.Character
 import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.example.teamworklesson3compose.presentation.ui.theme.Black_transparent
@@ -94,9 +91,13 @@ fun UserInfo(modifier: Modifier = Modifier) {
     Spacer(modifier = Modifier.height(20.dp))
 }
 
-
 @Composable
-fun SearchAccount() {
+fun SearchAccount(
+    onSearchClick: (name: String) -> Unit = {},
+    any: Any?,
+
+    ) {
+
     var text by remember {
         mutableStateOf("")
     }
@@ -112,7 +113,7 @@ fun SearchAccount() {
                 Icon(
                     modifier = Modifier
                         .clickable {
-
+                            onSearchClick(text)
                         }
                         .size(20.dp),
                     painter = painterResource(id = R.drawable.search),
@@ -137,9 +138,9 @@ fun SuggestionsDesign(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(
                     id = R.string.suggestions
-                ), color = White,
+                ),
+                color = White,
                 onTextLayout = {
-
                 }
             )
             Spacer(modifier = Modifier.width(160.dp))
@@ -148,7 +149,6 @@ fun SuggestionsDesign(modifier: Modifier = Modifier) {
                     id = R.string.see_all
                 ), color = White,
                 onTextLayout = {
-
                 }
             )
             Icon(

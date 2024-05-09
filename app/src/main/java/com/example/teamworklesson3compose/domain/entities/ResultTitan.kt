@@ -1,5 +1,6 @@
 package com.example.teamworklesson3compose.domain.entities
 
+
 data class ResultTitan(
     val abilities: List<String>,
     val allegiance: String,

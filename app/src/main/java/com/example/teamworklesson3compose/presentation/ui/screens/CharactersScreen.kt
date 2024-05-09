@@ -1,11 +1,9 @@
 package com.example.teamworklesson3compose.presentation.ui.screens
 
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,26 +16,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.teamworklesson3compose.R
-import com.example.teamworklesson3compose.data.remote.models.persons.ResultCharacterDto
-import com.example.teamworklesson3compose.data.remote.models.titans.ResultTitanDto
+import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.teamworklesson3compose.domain.entities.Character
 import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
 import com.example.teamworklesson3compose.presentation.ui.viewmodels.AOTViewModel
 import com.example.teamworklesson3compose.utils.UiState
 
-@Preview
 @Composable
 fun CharactersScreen(
     modifier: Modifier = Modifier,
-    viewModel: AOTViewModel = hiltViewModel()
+    viewModel: AOTViewModel = hiltViewModel(),
+//    navController: NavController
 ) {
     val characters by viewModel.charactersState.observeAsState()
     val titans by viewModel.titansState.observeAsState()
@@ -54,23 +50,38 @@ fun CharactersScreen(
                     .fillMaxWidth()
                     .padding(8.dp)
             )
-                SearchAccount()
 
-            when(searchCharacter){
-                is UiState.Error -> {
-                    Log.e("tag", "CharactersScreen:${(searchCharacter as UiState.Error).message} ", )
-                }
-                UiState.Loading -> {
-
-                }
-                is UiState.Success -> {
-                    (searchCharacter as UiState .Success<List<Character>>).data?.let {
-                        
+            SearchAccount(onSearchClick = { name ->
+                viewModel.searchCharacters(name)
+            },
+                when (searchCharacter) {
+                    is UiState.Error -> {
+                        Log.e(
+                            "tag",
+                            "CharactersScreen:${(searchCharacter as UiState.Error).message} "
+                        )
                     }
-                }
-                null -> {}
-            }
 
+                    UiState.Loading -> {
+                    }
+
+                    is UiState.Success -> {
+                        (searchCharacter as UiState.Success<List<Character>>).data?.let {
+                            LazyColumn(modifier = Modifier.align(alignment = Alignment.CenterHorizontally)) {
+                                items(it) { item ->
+                                    AsyncImage(model = item.img, contentDescription = "")
+                                    Text(
+                                        text = item.name, onTextLayout = {},
+                                        color = Color.White,
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    null -> TODO()
+                }
+            )
             Spacer(
                 modifier = Modifier
                     .height(20.dp)
@@ -112,7 +123,8 @@ fun CharactersScreen(
             TheBestCharacter(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp))
+                    .padding(10.dp)
+            )
 
             LazyColumn(modifier = Modifier) {
                 when (characters) {
