@@ -22,7 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavArgument
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import coil.compose.AsyncImage
 import com.example.teamworklesson3compose.NavigationScreens
 import com.example.teamworklesson3compose.domain.entities.Character
@@ -30,6 +32,7 @@ import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
 import com.example.teamworklesson3compose.presentation.ui.viewmodels.AOTViewModel
 import com.example.teamworklesson3compose.utils.UiState
+import com.google.gson.Gson
 
 @Composable
 fun CharactersScreen(
@@ -73,7 +76,15 @@ fun CharactersScreen(
                                 items(it) { item ->
                                     AsyncImage(
                                         modifier = Modifier.clickable {
-                                            navController.navigate(NavigationScreens.DETAIL_SCREEN.route)
+                                            val navGraph = navController.graph
+                                            val arguments = navGraph.arguments.toMutableMap()
+                                            arguments["character"] = NavArgument.Builder()
+                                                .setType(NavType.StringType)
+                                                .setDefaultValue(item)
+                                                .build()
+                                            navController.graph = navGraph
+                                            navController.navigate("${NavigationScreens.DETAIL_SCREEN.route}/${Gson().toJson(item)}")
+
                                         },
                                         model = item.img,
                                         contentDescription = ""

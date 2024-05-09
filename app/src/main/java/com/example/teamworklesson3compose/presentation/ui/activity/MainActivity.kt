@@ -1,6 +1,7 @@
 package com.example.teamworklesson3compose.presentation.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +19,9 @@ import com.example.teamworklesson3compose.presentation.ui.screens.CharactersScre
 import com.example.teamworklesson3compose.presentation.ui.screens.DetailScreen
 import com.example.teamworklesson3compose.presentation.ui.theme.TeamWorkLesson3ComposeTheme
 import com.google.gson.Gson
+import com.google.gson.stream.JsonReader
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.StringReader
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -27,8 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             TeamWorkLesson3ComposeTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
                     NavHost(
@@ -39,27 +41,26 @@ class MainActivity : ComponentActivity() {
                             NavigationScreens.CHARACTER_SCREEN.route
                         ) {
                             CharactersScreen(
-                                modifier = Modifier.fillMaxSize(),
-                                navController = navController
+                                modifier = Modifier.fillMaxSize(), navController = navController
                             )
                         }
 
-                   composable(
-                            "${NavigationScreens.DETAIL_SCREEN.route}/{character}",
+                        composable(
+                            NavigationScreens.DETAIL_SCREEN.route,
                             arguments = listOf(navArgument("character") {
-                                type = NavType.StringArrayType
+                                type = NavType.StringType
                             })
                         ) { navBackStackEntry ->
                             val characterJson = navBackStackEntry.arguments?.getString("character")
-                            val character = Gson().fromJson(
-                                characterJson,
-                                Character::class.java
-                            )
+                            val reader = JsonReader(StringReader(characterJson)).apply { isLenient =
+                                true }
+                            val character = Gson().fromJson<Character>(reader, Character::class.java)
                             DetailScreen(
                                 navController = navController,
                                 character = character,
                             )
                         }
+
                     }
                 }
             }
