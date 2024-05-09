@@ -94,7 +94,7 @@ fun UserInfo(modifier: Modifier = Modifier) {
 @Composable
 fun SearchAccount(
     onSearchClick: (name: String) -> Unit = {},
-    any: Any?,
+    onClick: Any?,
 
     ) {
 
