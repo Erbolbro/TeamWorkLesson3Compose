@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.teamworklesson3compose.R
 import com.example.teamworklesson3compose.domain.entities.Character
 
@@ -48,19 +49,19 @@ fun DetailScreen(
     }
 }
 
-//@Preview
-//@Composable
-//fun DetailScreenPreview() {
-//    DetailScreen(
-//        modifier = Modifier.fillMaxWidth(),
-//        navController = NavController(),
-//        character = Character(
-//            name = "eren",
-//            alias = listOf(""),
-//            birthplace = "sj",
-//            episodes = listOf(""), gender = "sd", groups = listOf(), height = "dsk",
-//            id = 0, img = "", occupation = "dsk", age = "sdk", status = "hdsj", residence = "dsjk",
-//            species = listOf(""), relatives = listOf(), roles = listOf()
-//        )
-//    )
-//}
+@Preview
+@Composable
+fun DetailScreenPreview() {
+    DetailScreen(
+        modifier = Modifier.fillMaxWidth(),
+        navController = rememberNavController(),
+        character = Character(
+            name = "eren",
+            alias = listOf(""),
+            birthplace = "sj",
+            episodes = listOf(""), gender = "sd", groups = listOf(), height = "dsk",
+            id = 0, img = "", occupation = "dsk", age = "sdk", status = "hdsj", residence = "dsjk",
+            species = listOf(""), relatives = listOf(), roles = listOf()
+        )
+    )
+}

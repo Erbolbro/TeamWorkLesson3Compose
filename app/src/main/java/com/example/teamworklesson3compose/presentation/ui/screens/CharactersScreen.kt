@@ -2,6 +2,7 @@ package com.example.teamworklesson3compose.presentation.ui.screens
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.teamworklesson3compose.NavigationScreens
 import com.example.teamworklesson3compose.domain.entities.Character
 import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
@@ -33,7 +35,7 @@ import com.example.teamworklesson3compose.utils.UiState
 fun CharactersScreen(
     modifier: Modifier = Modifier,
     viewModel: AOTViewModel = hiltViewModel(),
-//    navController: NavController
+    navController: NavController,
 ) {
     val characters by viewModel.charactersState.observeAsState()
     val titans by viewModel.titansState.observeAsState()
@@ -69,7 +71,13 @@ fun CharactersScreen(
                         (searchCharacter as UiState.Success<List<Character>>).data?.let {
                             LazyColumn(modifier = Modifier.align(alignment = Alignment.CenterHorizontally)) {
                                 items(it) { item ->
-                                    AsyncImage(model = item.img, contentDescription = "")
+                                    AsyncImage(
+                                        modifier = Modifier.clickable {
+                                            navController.navigate(NavigationScreens.DETAIL_SCREEN.route)
+                                        },
+                                        model = item.img,
+                                        contentDescription = ""
+                                    )
                                     Text(
                                         text = item.name, onTextLayout = {},
                                         color = Color.White,
