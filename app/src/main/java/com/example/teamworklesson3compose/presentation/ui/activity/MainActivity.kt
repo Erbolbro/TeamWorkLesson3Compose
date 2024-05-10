@@ -13,11 +13,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.teamworklesson3compose.NavigationScreens
-import com.example.teamworklesson3compose.domain.entities.Character
 import com.example.teamworklesson3compose.presentation.ui.screens.CharactersScreen
 import com.example.teamworklesson3compose.presentation.ui.screens.DetailScreen
 import com.example.teamworklesson3compose.presentation.ui.theme.TeamWorkLesson3ComposeTheme
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,21 +42,13 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                   composable(
-                            "${NavigationScreens.DETAIL_SCREEN.route}/{character}",
-                            arguments = listOf(navArgument("character") {
-                                type = NavType.StringArrayType
+                        composable(
+                            "${NavigationScreens.DETAIL_SCREEN.route}/{name}",
+                            arguments = listOf(navArgument("name") {
+                                type = NavType.StringType
                             })
                         ) { navBackStackEntry ->
-                            val characterJson = navBackStackEntry.arguments?.getString("character")
-                            val character = Gson().fromJson(
-                                characterJson,
-                                Character::class.java
-                            )
-                            DetailScreen(
-                                navController = navController,
-                                character = character,
-                            )
+                            DetailScreen(navController =navController, backStackEntry = navBackStackEntry)
                         }
                     }
                 }
