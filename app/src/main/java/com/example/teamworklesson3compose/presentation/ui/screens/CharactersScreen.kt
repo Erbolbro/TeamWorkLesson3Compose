@@ -1,5 +1,6 @@
 package com.example.teamworklesson3compose.presentation.ui.screens
 
+import android.os.Bundle
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,9 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavArgument
 import androidx.navigation.NavController
-import androidx.navigation.NavType
 import coil.compose.AsyncImage
 import com.example.teamworklesson3compose.NavigationScreens
 import com.example.teamworklesson3compose.domain.entities.Character
@@ -76,15 +75,7 @@ fun CharactersScreen(
                                 items(it) { item ->
                                     AsyncImage(
                                         modifier = Modifier.clickable {
-                                            val navGraph = navController.graph
-                                            val arguments = navGraph.arguments.toMutableMap()
-                                            arguments["character"] = NavArgument.Builder()
-                                                .setType(NavType.StringType)
-                                                .setDefaultValue(item)
-                                                .build()
-                                            navController.graph = navGraph
-                                            navController.navigate("${NavigationScreens.DETAIL_SCREEN.route}/${Gson().toJson(item)}")
-
+                                           navController.navigate("${NavigationScreens.DETAIL_SCREEN.route}/${item.name}")
                                         },
                                         model = item.img,
                                         contentDescription = ""
