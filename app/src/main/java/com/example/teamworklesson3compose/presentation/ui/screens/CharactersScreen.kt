@@ -75,9 +75,7 @@ fun CharactersScreen(
                                 items(it) { item ->
                                     AsyncImage(
                                         modifier = Modifier.clickable {
-                                            val json = Gson().toJson(item)
-                                            val characterItem = json.replace("/", "?")
-                                            navController.navigate("${NavigationScreens.DETAIL_SCREEN.route}/$characterItem")
+                                           navController.navigate("${NavigationScreens.DETAIL_SCREEN.route}/${item.name}")
                                         },
                                         model = item.img,
                                         contentDescription = ""
