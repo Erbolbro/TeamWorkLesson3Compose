@@ -1,5 +1,6 @@
 package com.example.teamworklesson3compose.presentation.ui.screens
 
+import android.os.Bundle
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,6 +31,7 @@ import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
 import com.example.teamworklesson3compose.presentation.ui.viewmodels.AOTViewModel
 import com.example.teamworklesson3compose.utils.UiState
+import com.google.gson.Gson
 
 @Composable
 fun CharactersScreen(
@@ -73,7 +75,9 @@ fun CharactersScreen(
                                 items(it) { item ->
                                     AsyncImage(
                                         modifier = Modifier.clickable {
-                                            navController.navigate(NavigationScreens.DETAIL_SCREEN.route)
+                                            val json = Gson().toJson(item)
+                                            val characterItem = json.replace("/", "?")
+                                            navController.navigate("${NavigationScreens.DETAIL_SCREEN.route}/$characterItem")
                                         },
                                         model = item.img,
                                         contentDescription = ""

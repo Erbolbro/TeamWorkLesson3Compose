@@ -1,6 +1,7 @@
 package com.example.teamworklesson3compose.presentation.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -44,15 +45,18 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                   composable(
+                        composable(
                             "${NavigationScreens.DETAIL_SCREEN.route}/{character}",
                             arguments = listOf(navArgument("character") {
-                                type = NavType.StringArrayType
+                                type = NavType.StringType
+                                defaultValue = ""
                             })
                         ) { navBackStackEntry ->
                             val characterJson = navBackStackEntry.arguments?.getString("character")
+                            val json = characterJson?.replace("?", "/")
+                            Log.e("character", "onCreate: $json", )
                             val character = Gson().fromJson(
-                                characterJson,
+                                json,
                                 Character::class.java
                             )
                             DetailScreen(
