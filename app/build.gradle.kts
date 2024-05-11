@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-
     // Kapt
     kotlin("kapt")
 
@@ -99,9 +98,6 @@ dependencies {
     //noinspection UseTomlInstead
     implementation("com.squareup.okhttp3:logging-interceptor")
 
-    // Binding property delegate
-    //noinspection UseTomlInstead
-    implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
     //AsyncImage
     implementation("io.coil-kt:coil-compose:2.6.0")
 }

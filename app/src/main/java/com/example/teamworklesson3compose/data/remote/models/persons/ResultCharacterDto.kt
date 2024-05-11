@@ -1,8 +1,9 @@
 package com.example.teamworklesson3compose.data.remote.models.persons
 
+import com.example.teamworklesson3compose.domain.entities.Character
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class ResultCharacterDto(
     @SerializedName("age")
     val age: String,
     @SerializedName("alias")
@@ -36,3 +37,23 @@ data class Result(
     @SerializedName("status")
     val status: String
 )
+
+fun ResultCharacterDto.toDomain() =
+    Character(
+        age,
+        alias,
+        birthplace,
+        episodes,
+        gender,
+        groups,
+        height,
+        id,
+        img,
+        name,
+        occupation,
+        relatives,
+        residence,
+        roles,
+        species,
+        status
+    )

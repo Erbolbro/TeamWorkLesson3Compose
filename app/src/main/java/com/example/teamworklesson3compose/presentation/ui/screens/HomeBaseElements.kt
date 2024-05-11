@@ -2,6 +2,7 @@ package com.example.teamworklesson3compose.presentation.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,8 +42,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.teamworklesson3compose.R
-import com.example.teamworklesson3compose.data.remote.models.persons.Result
-import com.example.teamworklesson3compose.data.remote.models.titans.ResultTitan
+import com.example.teamworklesson3compose.domain.entities.Character
+import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.example.teamworklesson3compose.presentation.ui.theme.Black_transparent
 import com.example.teamworklesson3compose.presentation.ui.theme.Blue
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
@@ -61,9 +62,20 @@ fun UserInfo(modifier: Modifier = Modifier) {
                 contentScale = ContentScale.Crop,
             )
             Column {
-                Text(text = stringResource(R.string.welcome_back), color = Gray, fontSize = 12.sp)
                 Text(
-                    text = stringResource(R.string.hajime_isayama), color = White, fontSize = 16.sp
+                    text = stringResource(R.string.welcome_back),
+                    color = Gray,
+                    fontSize = 12.sp,
+                    onTextLayout = {
+
+                    })
+                Text(
+                    text = stringResource(R.string.hajime_isayama),
+                    color = White,
+                    fontSize = 16.sp,
+                    onTextLayout = {
+
+                    }
                 )
             }
         }
@@ -72,7 +84,7 @@ fun UserInfo(modifier: Modifier = Modifier) {
                 .align(Alignment.TopEnd)
                 .size(40.dp),
             painter = painterResource(id = R.drawable.bell),
-            contentDescription = "Bell",
+            contentDescription = stringResource(R.string.bell_icon),
             tint = Blue
         )
     }
@@ -80,29 +92,38 @@ fun UserInfo(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SearchAccount() {
+fun SearchAccount(
+    onSearchClick: (name: String) -> Unit = {},
+    onClick: Any?,
+) {
+
     var text by remember {
         mutableStateOf("")
     }
+
     Card(modifier = Modifier) {
         TextField(value = text,
             onValueChange = { text = it },
-            label = { Text("search") },
+            label = { Text("search", onTextLayout = {}) },
             textStyle = TextStyle(color = Color.Red),
             colors = TextFieldDefaults.colors(unfocusedContainerColor = Black),
             modifier = Modifier.fillMaxWidth(),
             leadingIcon = {
                 Icon(
+                    modifier = Modifier
+                        .clickable {
+                            onSearchClick(text)
+                        }
+                        .size(20.dp),
                     painter = painterResource(id = R.drawable.search),
-                    contentDescription = "search",
-                    Modifier.size(20.dp)
+                    contentDescription = stringResource(R.string.search_icon),
                 )
             },
             trailingIcon = {
                 Icon(
                     modifier = Modifier.size(20.dp),
                     painter = painterResource(id = R.drawable.filter),
-                    contentDescription = "filter",
+                    contentDescription = stringResource(R.string.filter_icon),
                 )
             })
     }
@@ -116,13 +137,18 @@ fun SuggestionsDesign(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(
                     id = R.string.suggestions
-                ), color = White
+                ),
+                color = White,
+                onTextLayout = {
+                }
             )
             Spacer(modifier = Modifier.width(160.dp))
             Text(
                 text = stringResource(
                     id = R.string.see_all
-                ), color = White
+                ), color = White,
+                onTextLayout = {
+                }
             )
             Icon(
                 modifier = Modifier.size(22.dp),
@@ -161,14 +187,16 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
                     modifier = Modifier.padding(start = 4.dp),
                     text = titans.height,
                     fontSize = 10.sp,
-                    color = White
+                    color = White, onTextLayout = {
+
+                    }
                 )
                 Icon(
                     modifier = Modifier
                         .size(22.dp)
                         .padding(),
                     painter = painterResource(id = R.drawable.ic_rating),
-                    contentDescription = "",
+                    contentDescription = stringResource(R.string.icon_rating),
                     tint = Yellow
                 )
             }
@@ -179,10 +207,10 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
                     .align(Alignment.BottomStart),
             ) {
                 Text(
-                    text = titans.name, color = White, fontSize = 16.sp
+                    text = titans.name, color = White, fontSize = 16.sp,
                 )
                 Text(
-                    text = titans.allegiance, color = White, fontSize = 18.sp
+                    text = titans.allegiance, color = White, fontSize = 18.sp,
                 )
             }
         }
@@ -190,12 +218,17 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
 }
 
 @Composable
-fun TheBestCharacter(modifier: Modifier = Modifier) {
-    Text(text = stringResource(R.string.the_characters), fontSize = 20.sp, color = White)
+fun TheBestCharacter(modifier: Modifier) {
+    Text(
+        modifier = modifier,
+        text = stringResource(R.string.the_characters),
+        fontSize = 20.sp,
+        color = White,
+    )
 }
 
 @Composable
-fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Result) {
+fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Character) {
     Card(modifier = Modifier.background(DarkBlue)) {
         Box(
             modifier = modifier
@@ -226,7 +259,9 @@ fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Result) {
                             text = characters.name,
                             fontSize = 14.sp,
                             color = White,
-                            maxLines = 1
+                            maxLines = 1, onTextLayout = {
+
+                            }
                         )
                         Spacer(modifier = Modifier.width(40.dp))
                         Icon(
@@ -235,7 +270,13 @@ fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Result) {
                             contentDescription = "",
                             tint = Yellow,
                         )
-                        Text(text = characters.age, fontSize = 16.sp, maxLines = 1, color = White)
+                        Text(text = characters.age,
+                            fontSize = 16.sp,
+                            maxLines = 1,
+                            color = White,
+                            onTextLayout = {
+
+                            })
 
                     }
 
@@ -243,7 +284,7 @@ fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Result) {
                         Icon(
                             modifier = Modifier.size(16.dp),
                             painter = painterResource(id = R.drawable.calendar_icon),
-                            contentDescription = "calendar icon"
+                            contentDescription = stringResource(R.string.calendar_icon)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
@@ -251,7 +292,9 @@ fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Result) {
                             text = characters.height,
                             color = White,
                             fontSize = 16.sp,
-                            maxLines = 1
+                            maxLines = 1, onTextLayout = {
+
+                            }
                         )
                     }
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -262,7 +305,9 @@ fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Result) {
                         Text(
                             text = characters.status,
                             color = White,
-                            fontSize = 16.sp
+                            fontSize = 16.sp, onTextLayout = {
+
+                            }
                         )
                         Spacer(modifier = Modifier.width(40.dp))
                         Icon(
@@ -272,7 +317,11 @@ fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Result) {
                             )
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = characters.occupation, color = White, fontSize = 16.sp)
+                        Text(
+                            text = characters.occupation,
+                            color = White,
+                            fontSize = 16.sp,
+                        )
                     }
                 }
             }
