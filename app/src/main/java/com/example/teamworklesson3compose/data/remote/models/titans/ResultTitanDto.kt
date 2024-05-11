@@ -1,6 +1,5 @@
 package com.example.teamworklesson3compose.data.remote.models.titans
 
-
 import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.google.gson.annotations.SerializedName
 
