@@ -84,7 +84,7 @@ fun UserInfo(modifier: Modifier = Modifier) {
                 .align(Alignment.TopEnd)
                 .size(40.dp),
             painter = painterResource(id = R.drawable.bell),
-            contentDescription = "Bell",
+            contentDescription = stringResource(R.string.bell_icon),
             tint = Blue
         )
     }
@@ -95,8 +95,7 @@ fun UserInfo(modifier: Modifier = Modifier) {
 fun SearchAccount(
     onSearchClick: (name: String) -> Unit = {},
     onClick: Any?,
-
-    ) {
+) {
 
     var text by remember {
         mutableStateOf("")
@@ -117,14 +116,14 @@ fun SearchAccount(
                         }
                         .size(20.dp),
                     painter = painterResource(id = R.drawable.search),
-                    contentDescription = "search",
+                    contentDescription = stringResource(R.string.search_icon),
                 )
             },
             trailingIcon = {
                 Icon(
                     modifier = Modifier.size(20.dp),
                     painter = painterResource(id = R.drawable.filter),
-                    contentDescription = "filter",
+                    contentDescription = stringResource(R.string.filter_icon),
                 )
             })
     }
@@ -197,7 +196,7 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
                         .size(22.dp)
                         .padding(),
                     painter = painterResource(id = R.drawable.ic_rating),
-                    contentDescription = "",
+                    contentDescription = stringResource(R.string.icon_rating),
                     tint = Yellow
                 )
             }
@@ -208,14 +207,10 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
                     .align(Alignment.BottomStart),
             ) {
                 Text(
-                    text = titans.name, color = White, fontSize = 16.sp, onTextLayout = {
-
-                    }
+                    text = titans.name, color = White, fontSize = 16.sp,
                 )
                 Text(
-                    text = titans.allegiance, color = White, fontSize = 18.sp, onTextLayout = {
-
-                    }
+                    text = titans.allegiance, color = White, fontSize = 18.sp,
                 )
             }
         }
@@ -225,12 +220,11 @@ fun LazyRowTitanItem(modifier: Modifier = Modifier, titans: ResultTitan) {
 @Composable
 fun TheBestCharacter(modifier: Modifier) {
     Text(
+        modifier = modifier,
         text = stringResource(R.string.the_characters),
         fontSize = 20.sp,
         color = White,
-        onTextLayout = {
-
-        })
+    )
 }
 
 @Composable
@@ -290,7 +284,7 @@ fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Character)
                         Icon(
                             modifier = Modifier.size(16.dp),
                             painter = painterResource(id = R.drawable.calendar_icon),
-                            contentDescription = "calendar icon"
+                            contentDescription = stringResource(R.string.calendar_icon)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
@@ -327,9 +321,7 @@ fun LazyColumCharacterItem(modifier: Modifier = Modifier, characters: Character)
                             text = characters.occupation,
                             color = White,
                             fontSize = 16.sp,
-                            onTextLayout = {
-
-                            })
+                        )
                     }
                 }
             }

@@ -1,6 +1,5 @@
 package com.example.teamworklesson3compose.presentation.ui.screens
 
-import android.os.Bundle
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,7 +30,6 @@ import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
 import com.example.teamworklesson3compose.presentation.ui.viewmodels.AOTViewModel
 import com.example.teamworklesson3compose.utils.UiState
-import com.google.gson.Gson
 
 @Composable
 fun CharactersScreen(
@@ -44,7 +42,7 @@ fun CharactersScreen(
     val searchCharacter by viewModel.searchCharactersState.observeAsState()
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .background(color = DarkBlue)
             .padding(4.dp)
     ) {
@@ -75,7 +73,7 @@ fun CharactersScreen(
                                 items(it) { item ->
                                     AsyncImage(
                                         modifier = Modifier.clickable {
-                                           navController.navigate("${NavigationScreens.DETAIL_SCREEN.route}/${item.name}")
+                                            navController.navigate("${NavigationScreens.DETAIL_SCREEN.route}/${item.name}")
                                         },
                                         model = item.img,
                                         contentDescription = ""
@@ -89,7 +87,9 @@ fun CharactersScreen(
                         }
                     }
 
-                    null -> TODO()
+                    null ->{
+
+                    }
                 }
             )
             Spacer(
@@ -100,6 +100,7 @@ fun CharactersScreen(
             )
 
             SuggestionsDesign()
+
             Spacer(
                 modifier = Modifier
                     .height(20.dp)

@@ -20,4 +20,9 @@
     <string name="character">Картинка персонажа</string>
     <string name="name">Имя персонажа</string>
     <string name="greenbox">greenBox</string>
+    <string name="icon_rating">icon rating</string>
+    <string name="calendar_icon">calendar icon</string>
+    <string name="search_icon">search</string>
+    <string name="filter_icon">filter icon</string>
+    <string name="bell_icon">Bell icon</string>
 </resources>
