@@ -1,4 +1,4 @@
-package com.example.teamworklesson3compose
+package com.example.teamworklesson3compose.utils
 
 enum class NavigationScreens(val route:String) {
     CHARACTER_SCREEN(route = "characterScreen"),

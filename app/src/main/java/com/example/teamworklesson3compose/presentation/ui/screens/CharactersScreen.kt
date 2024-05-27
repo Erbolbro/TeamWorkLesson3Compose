@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.teamworklesson3compose.NavigationScreens
+import com.example.teamworklesson3compose.utils.NavigationScreens
 import com.example.teamworklesson3compose.domain.entities.Character
 import com.example.teamworklesson3compose.domain.entities.ResultTitan
 import com.example.teamworklesson3compose.presentation.ui.theme.DarkBlue
@@ -65,6 +66,8 @@ fun CharactersScreen(
                     }
 
                     UiState.Loading -> {
+                        Log.d("tag", "CharactersScreen:${searchCharacter.toString()} ")
+
                     }
 
                     is UiState.Success -> {
@@ -86,9 +89,8 @@ fun CharactersScreen(
                             }
                         }
                     }
-
-                    null ->{
-
+                    else ->{
+                        searchCharacter != null
                     }
                 }
             )
@@ -114,6 +116,7 @@ fun CharactersScreen(
                     }
 
                     is UiState.Loading -> {
+                        Log.d("tag", "CharactersScreen:${titans.toString()} ")
                     }
 
                     is UiState.Success -> {
@@ -125,7 +128,8 @@ fun CharactersScreen(
                         }
                     }
 
-                    null -> {
+                    else ->{
+                        searchCharacter != null
                     }
                 }
             }
@@ -146,6 +150,7 @@ fun CharactersScreen(
                         )
 
                     UiState.Loading -> {
+                        Log.d("tag", "CharactersScreen:${characters.toString()}")
                     }
 
                     is UiState.Success -> (characters as UiState.Success<List<Character>>).data?.let {
@@ -153,8 +158,8 @@ fun CharactersScreen(
                             LazyColumCharacterItem(characters = item)
                         }
                     }
-
-                    null -> {
+                    else ->{
+                        searchCharacter != null
                     }
                 }
             }
