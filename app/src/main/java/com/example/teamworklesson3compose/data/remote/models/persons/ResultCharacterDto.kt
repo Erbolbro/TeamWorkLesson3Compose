@@ -15,7 +15,7 @@ data class ResultCharacterDto(
     @SerializedName("gender")
     val gender: String,
     @SerializedName("groups")
-    val groups: List<Group>,
+    val groups: List<GroupDto>,
     @SerializedName("height")
     val height: String,
     @SerializedName("id")
@@ -27,7 +27,7 @@ data class ResultCharacterDto(
     @SerializedName("occupation")
     val occupation: String,
     @SerializedName("relatives")
-    val relatives: List<Relative>,
+    val relatives: List<RelativeDto>,
     @SerializedName("residence")
     val residence: String,
     @SerializedName("roles")
@@ -45,13 +45,13 @@ fun ResultCharacterDto.toDomain() =
         birthplace,
         episodes,
         gender,
-        groups,
+        groups.map { it.toDomain() },
         height,
         id,
         img,
         name,
         occupation,
-        relatives,
+        relatives.map { it.toDomain() },
         residence,
         roles,
         species,
