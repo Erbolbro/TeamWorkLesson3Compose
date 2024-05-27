@@ -12,7 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.teamworklesson3compose.NavigationScreens
+import com.example.teamworklesson3compose.utils.NavigationScreens
 import com.example.teamworklesson3compose.presentation.ui.screens.CharactersScreen
 import com.example.teamworklesson3compose.presentation.ui.screens.DetailScreen
 import com.example.teamworklesson3compose.presentation.ui.theme.TeamWorkLesson3ComposeTheme

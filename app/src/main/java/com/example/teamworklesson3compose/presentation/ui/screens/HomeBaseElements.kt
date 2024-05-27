@@ -113,6 +113,9 @@ fun SearchAccount(
                     modifier = Modifier
                         .clickable {
                             onSearchClick(text)
+                            onClick?.let {
+
+                            }
                         }
                         .size(20.dp),
                     painter = painterResource(id = R.drawable.search),
