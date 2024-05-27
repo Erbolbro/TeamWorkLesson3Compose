@@ -7,8 +7,5 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class SearchCharactersUseCase @Inject constructor(private val repository: AOTRepository) {
-
-    suspend fun execute(name: String): Flow<Either<Throwable, List<Character>>> {
-        return repository.searchCharacters(name)
-    }
+    suspend fun execute(name: String): Flow<Either<Throwable, List<Character>>> = repository.searchCharacters(name)
 }
