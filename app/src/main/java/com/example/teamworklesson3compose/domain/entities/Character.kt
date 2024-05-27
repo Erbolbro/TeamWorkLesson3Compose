@@ -2,7 +2,6 @@ package com.example.teamworklesson3compose.domain.entities
 
 import com.example.teamworklesson3compose.data.remote.models.persons.Group
 import com.example.teamworklesson3compose.data.remote.models.persons.Relative
-import java.io.Serializable
 
 data class Character(
     val age: String,
