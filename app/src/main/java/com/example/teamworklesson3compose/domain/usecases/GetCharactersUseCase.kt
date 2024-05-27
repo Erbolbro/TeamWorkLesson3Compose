@@ -7,6 +7,5 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetCharactersUseCase @Inject constructor(private val repository: AOTRepository) {
-
     suspend fun execute(): Flow<Either<Throwable, List<Character>>> = repository.getCharacters()
 }

@@ -9,25 +9,25 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
-    protected open fun <T> Flow<Either<Throwable, T>>.collectFlowAsState(
+    protected open fun <T> getDataShortener(
         state: MutableLiveData<UiState<T>>,
+        useCaseFlow: Flow<Either<Throwable, T>>
     ) {
+        state.value = UiState.Loading
         viewModelScope.launch {
-            this@collectFlowAsState.collect {
-                when (it) {
-                    is Either.Left -> {
-                        it.left?.let { t ->
-                            val message = t.message ?: "Unknown error!"
-                            state.value = UiState.Error(t, message)
+            try {
+                useCaseFlow.collect { result ->
+                    when (result) {
+                        is Either.Right -> {
+                            state.value = UiState.Success(result.right)
                         }
-                    }
-
-                    is Either.Right -> {
-                        it.right?.let { data ->
-                            state.value = UiState.Success(data)
+                        is Either.Left -> {
+                            state.value = UiState.Error(result.left ?: Exception("Unknown Error"))
                         }
                     }
                 }
+            } catch (e: Exception) {
+                state.value = UiState.Error(e)
             }
         }
     }

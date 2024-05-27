@@ -18,24 +18,6 @@ object UseCasesModule {
 
     @Provides
     @Singleton
-    fun provideSearchUseCase(aotRepository: AOTRepository): SearchCharactersUseCase {
-        return SearchCharactersUseCase(aotRepository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideTitansUseCase(aotRepository: AOTRepository): GetTitansUseCase {
-        return GetTitansUseCase(aotRepository)
-    }
-
-    @Provides
-    @Singleton
-    fun provideCharactersUseCase(aotRepository: AOTRepository): GetCharactersUseCase {
-        return GetCharactersUseCase(aotRepository)
-    }
-
-    @Provides
-    @Singleton
     fun provideRepository(apiService: AttackOnTitansApiService): AOTRepository {
         return AOTRepositoryImpl(apiService)
     }
